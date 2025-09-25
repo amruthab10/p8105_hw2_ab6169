@@ -5,10 +5,13 @@ date: "2025-09-25"
 output: html_document
 ---
 
+## Problem 1
+
 First, I load my libraries
 ```{r setup, include=FALSE}
 library(tidyverse)
-library(janitor)  
+library(janitor) 
+library(readxl)
 ```
 
 Cleaning the `pols-month.csv` data
@@ -79,4 +82,8 @@ pols_df |>
   left_join(unemployment_df, by = c("year", "month"))
 ```
 
+Write-Up: 
+
+
+## Problem 2 
 

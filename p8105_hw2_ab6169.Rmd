@@ -14,7 +14,7 @@ library(janitor)
 Cleaning the `pols-month.csv` data
 ```{r}
 pols_df= 
-  read_csv("data_hw2/pols-month.csv") |>
+  read_csv("data_hw2/pols-month.csv", na = c("NA", ".", "")) |>
 separate(mon, into = c("year", "month", "day"), sep = "-") |>
 mutate(
   year = as.integer(year),
@@ -30,7 +30,7 @@ Cleaning the `snp.csv` data
 
 ```{r}
 snp_df= 
-  read_csv("data_hw2/snp.csv")|>
+  read_csv("data_hw2/snp.csv", na = c("NA", ".", ""))|>
   separate(date, into = c("month", "day", "year"), sep = "/") |>
   mutate(
     year = as.integer(year),
@@ -46,7 +46,7 @@ Cleaning the `unemployment.csv` data
 
 ```{r}
 unemployment_df= 
-  read_csv("data_hw2/unemployment.csv") |>
+  read_csv("data_hw2/unemployment.csv", na = c("NA", ".", "")) |>
 pivot_longer(
     cols = Jan:Dec,      
     names_to = "month",
@@ -66,7 +66,17 @@ pivot_longer(
       "Sep" ~ "September",
       "Oct" ~ "October",
       "Nov" ~ "November",
-      "Dec" ~ "December") )
+      "Dec" ~ "December") ) |> 
+  rename(year = Year) |>
+  select(year, month, unemployment)
+```
+
+Merging `snp.csv` and `pol-month.csv` and `unemployment.csv`
+```{r}
+merged_df= 
+pols_df |>
+  left_join(snp_df, by = c("year", "month")) |>
+  left_join(unemployment_df, by = c("year", "month"))
 ```
 
 

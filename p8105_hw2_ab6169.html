@@ -360,7 +360,7 @@ display: none;
 <p>First, I load my libraries</p>
 <p>Cleaning the <code>pols-month.csv</code> data</p>
 <pre class="r"><code>pols_df= 
-  read_csv(&quot;data_hw2/pols-month.csv&quot;) |&gt;
+  read_csv(&quot;data_hw2/pols-month.csv&quot;, na = c(&quot;NA&quot;, &quot;.&quot;, &quot;&quot;)) |&gt;
 separate(mon, into = c(&quot;year&quot;, &quot;month&quot;, &quot;day&quot;), sep = &quot;-&quot;) |&gt;
 mutate(
   year = as.integer(year),
@@ -379,7 +379,7 @@ mutate(
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <p>Cleaning the <code>snp.csv</code> data</p>
 <pre class="r"><code>snp_df= 
-  read_csv(&quot;data_hw2/snp.csv&quot;)|&gt;
+  read_csv(&quot;data_hw2/snp.csv&quot;, na = c(&quot;NA&quot;, &quot;.&quot;, &quot;&quot;))|&gt;
   separate(date, into = c(&quot;month&quot;, &quot;day&quot;, &quot;year&quot;), sep = &quot;/&quot;) |&gt;
   mutate(
     year = as.integer(year),
@@ -397,7 +397,7 @@ mutate(
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <p>Cleaning the <code>unemployment.csv</code> data</p>
 <pre class="r"><code>unemployment_df= 
-  read_csv(&quot;data_hw2/unemployment.csv&quot;) |&gt;
+  read_csv(&quot;data_hw2/unemployment.csv&quot;, na = c(&quot;NA&quot;, &quot;.&quot;, &quot;&quot;)) |&gt;
 pivot_longer(
     cols = Jan:Dec,      
     names_to = &quot;month&quot;,
@@ -417,7 +417,9 @@ pivot_longer(
       &quot;Sep&quot; ~ &quot;September&quot;,
       &quot;Oct&quot; ~ &quot;October&quot;,
       &quot;Nov&quot; ~ &quot;November&quot;,
-      &quot;Dec&quot; ~ &quot;December&quot;) )</code></pre>
+      &quot;Dec&quot; ~ &quot;December&quot;) ) |&gt; 
+  rename(year = Year) |&gt;
+  select(year, month, unemployment)</code></pre>
 <pre><code>## Rows: 68 Columns: 13
 ## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
@@ -425,6 +427,12 @@ pivot_longer(
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<p>Merging <code>snp.csv</code> and <code>pol-month.csv</code> and
+<code>unemployment.csv</code></p>
+<pre class="r"><code>merged_df= 
+pols_df |&gt;
+  left_join(snp_df, by = c(&quot;year&quot;, &quot;month&quot;)) |&gt;
+  left_join(unemployment_df, by = c(&quot;year&quot;, &quot;month&quot;))</code></pre>
 
 
 

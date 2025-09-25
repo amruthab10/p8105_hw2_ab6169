@@ -6,7 +6,7 @@ output: html_document
 ---
 
 First, I will be loading my libraries
-```{r}
+```{r setup, include=FALSE}
 library(tidyverse)
 library(janitor)  
 ```
@@ -30,7 +30,14 @@ Cleaning the `snp.csv` data
 
 ```{r}
 snp_df= 
-  read_csv("data_hw2/snp.csv") 
+  read_csv("data_hw2/snp.csv")|>
+  separate(date, into = c("month", "day", "year"), sep = "/") |>
+  mutate(
+    year = as.integer(year),
+    month = as.integer(month),
+    month = month.name[month]) |>
+  select(year, month, close) |>
+  arrange(year, month)
 ```
 
 

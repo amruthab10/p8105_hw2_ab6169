@@ -5,7 +5,7 @@ date: "2025-09-25"
 output: html_document
 ---
 
-First, I will be loading my libraries
+First, I load my libraries
 ```{r setup, include=FALSE}
 library(tidyverse)
 library(janitor)  
@@ -40,5 +40,11 @@ snp_df=
   arrange(year, month)
 ```
 
+Cleaning the `unemployment.csv` data
+
+```{r}
+unemployment_df= 
+  read_csv("data_hw2/unemployment.csv")
+```
 
 

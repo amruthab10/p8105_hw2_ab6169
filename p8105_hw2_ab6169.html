@@ -357,7 +357,7 @@ display: none;
 </div>
 
 
-<p>First, I will be loading my libraries</p>
+<p>First, I load my libraries</p>
 <p>Cleaning the <code>pols-month.csv</code> data</p>
 <pre class="r"><code>pols_df= 
   read_csv(&quot;data_hw2/pols-month.csv&quot;) |&gt;
@@ -392,6 +392,16 @@ mutate(
 ## Delimiter: &quot;,&quot;
 ## chr (1): date
 ## dbl (1): close
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<p>Cleaning the <code>unemployment.csv</code> data</p>
+<pre class="r"><code>unemployment_df= 
+  read_csv(&quot;data_hw2/unemployment.csv&quot;)</code></pre>
+<pre><code>## Rows: 68 Columns: 13
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## dbl (13): Year, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>

@@ -398,27 +398,26 @@ mutate(
 <p>Cleaning the <code>unemployment.csv</code> data</p>
 <pre class="r"><code>unemployment_df= 
   read_csv(&quot;data_hw2/unemployment.csv&quot;) |&gt;
-   janitor:: clean_names() |&gt; 
 pivot_longer(
-    cols = jan:dec,      
+    cols = Jan:Dec,      
     names_to = &quot;month&quot;,
     values_to = &quot;unemployment&quot;
   ) |&gt;
   mutate(
     month = case_match(
       month,
-      &quot;jan&quot; ~ &quot;January&quot;,
-      &quot;feb&quot; ~ &quot;February&quot;,
-      &quot;mar&quot; ~ &quot;March&quot;,
-      &quot;apr&quot; ~ &quot;April&quot;,
-      &quot;may&quot; ~ &quot;May&quot;,
-      &quot;jun&quot; ~ &quot;June&quot;,
-      &quot;jul&quot; ~ &quot;July&quot;,
-      &quot;aug&quot; ~ &quot;August&quot;,
-      &quot;sep&quot; ~ &quot;September&quot;,
-      &quot;oct&quot; ~ &quot;October&quot;,
-      &quot;nov&quot; ~ &quot;November&quot;,
-      &quot;dec&quot; ~ &quot;December&quot;) )</code></pre>
+      &quot;Jan&quot; ~ &quot;January&quot;,
+      &quot;Feb&quot; ~ &quot;February&quot;,
+      &quot;Mar&quot; ~ &quot;March&quot;,
+      &quot;Apr&quot; ~ &quot;April&quot;,
+      &quot;May&quot; ~ &quot;May&quot;,
+      &quot;Jun&quot; ~ &quot;June&quot;,
+      &quot;Jul&quot; ~ &quot;July&quot;,
+      &quot;Aug&quot; ~ &quot;August&quot;,
+      &quot;Sep&quot; ~ &quot;September&quot;,
+      &quot;Oct&quot; ~ &quot;October&quot;,
+      &quot;Nov&quot; ~ &quot;November&quot;,
+      &quot;Dec&quot; ~ &quot;December&quot;) )</code></pre>
 <pre><code>## Rows: 68 Columns: 13
 ## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;

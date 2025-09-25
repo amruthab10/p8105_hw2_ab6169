@@ -47,27 +47,26 @@ Cleaning the `unemployment.csv` data
 ```{r}
 unemployment_df= 
   read_csv("data_hw2/unemployment.csv") |>
-   janitor:: clean_names() |> 
 pivot_longer(
-    cols = jan:dec,      
+    cols = Jan:Dec,      
     names_to = "month",
     values_to = "unemployment"
   ) |>
   mutate(
     month = case_match(
       month,
-      "jan" ~ "January",
-      "feb" ~ "February",
-      "mar" ~ "March",
-      "apr" ~ "April",
-      "may" ~ "May",
-      "jun" ~ "June",
-      "jul" ~ "July",
-      "aug" ~ "August",
-      "sep" ~ "September",
-      "oct" ~ "October",
-      "nov" ~ "November",
-      "dec" ~ "December") )
+      "Jan" ~ "January",
+      "Feb" ~ "February",
+      "Mar" ~ "March",
+      "Apr" ~ "April",
+      "May" ~ "May",
+      "Jun" ~ "June",
+      "Jul" ~ "July",
+      "Aug" ~ "August",
+      "Sep" ~ "September",
+      "Oct" ~ "October",
+      "Nov" ~ "November",
+      "Dec" ~ "December") )
 ```
 
 

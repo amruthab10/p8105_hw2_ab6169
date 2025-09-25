@@ -384,14 +384,25 @@ mutate(
   year = as.integer(year),
   month = as.integer(month),
   month = month.name[month],
-  president = ifelse(prez_gop == 1, &quot;gop&quot;, &quot;dem&quot;)
-  ) |&gt;
-select(-day, -prez_gop, -prez_dem)</code></pre>
+  president = ifelse(prez_gop == 1, &quot;gop&quot;, &quot;dem&quot;)) |&gt;
+
+  select(-day, -prez_gop, -prez_dem)</code></pre>
 <pre><code>## Rows: 822 Columns: 9
 ## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
 ## dbl  (8): prez_gop, gov_gop, sen_gop, rep_gop, prez_dem, gov_dem, sen_dem, r...
 ## date (1): mon
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<p>Cleaning the <code>snp.csv</code> data</p>
+<pre class="r"><code>snp_df= 
+  read_csv(&quot;data_hw2/snp.csv&quot;) </code></pre>
+<pre><code>## Rows: 787 Columns: 2
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (1): date
+## dbl (1): close
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>

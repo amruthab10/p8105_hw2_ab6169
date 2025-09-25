@@ -20,8 +20,18 @@ mutate(
   year = as.integer(year),
   month = as.integer(month),
   month = month.name[month],
-  president = ifelse(prez_gop == 1, "gop", "dem")
-  ) |>
-select(-day, -prez_gop, -prez_dem)
+  president = ifelse(prez_gop == 1, "gop", "dem")) |>
+
+  select(-day, -prez_gop, -prez_dem)
 ```
+
+
+Cleaning the `snp.csv` data
+
+```{r}
+snp_df= 
+  read_csv("data_hw2/snp.csv") 
+```
+
+
 

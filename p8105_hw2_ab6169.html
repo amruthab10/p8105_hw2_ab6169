@@ -397,7 +397,10 @@ mutate(
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <p>Cleaning the <code>snp.csv</code> data</p>
 <pre class="r"><code>snp_df= 
-  read_csv(&quot;data_hw2/snp.csv&quot;) </code></pre>
+  read_csv(&quot;data_hw2/snp.csv&quot;)|&gt;
+  separate(date, into = c(&quot;month&quot;, &quot;day&quot;, &quot;year&quot;), sep = &quot;/&quot;) |&gt;
+  mutate(
+    year = as.integer(year))</code></pre>
 <pre><code>## Rows: 787 Columns: 2
 ## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;

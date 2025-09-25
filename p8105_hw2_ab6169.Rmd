@@ -42,10 +42,32 @@ snp_df=
 
 Cleaning the `unemployment.csv` data
 
+
+
 ```{r}
 unemployment_df= 
   read_csv("data_hw2/unemployment.csv") |>
-   janitor:: clean_names() 
+   janitor:: clean_names() |> 
+pivot_longer(
+    cols = jan:dec,      
+    names_to = "month",
+    values_to = "unemployment"
+  ) |>
+  mutate(
+    month = case_match(
+      month,
+      "jan" ~ "January",
+      "feb" ~ "February",
+      "mar" ~ "March",
+      "apr" ~ "April",
+      "may" ~ "May",
+      "jun" ~ "June",
+      "jul" ~ "July",
+      "aug" ~ "August",
+      "sep" ~ "September",
+      "oct" ~ "October",
+      "nov" ~ "November",
+      "dec" ~ "December") )
 ```
 
 

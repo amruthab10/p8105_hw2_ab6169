@@ -44,7 +44,8 @@ Cleaning the `unemployment.csv` data
 
 ```{r}
 unemployment_df= 
-  read_csv("data_hw2/unemployment.csv")
+  read_csv("data_hw2/unemployment.csv") |>
+   janitor:: clean_names() 
 ```
 
 

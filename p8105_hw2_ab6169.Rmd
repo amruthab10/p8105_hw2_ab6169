@@ -1,0 +1,27 @@
+---
+title: "p8105_hw2_ab6169"
+author: "Amrutha Banda"
+date: "2025-09-25"
+output: html_document
+---
+
+First, I will be loading my libraries
+```{r}
+library(tidyverse)
+library(janitor)  
+```
+
+Cleaning the `pols-month.csv` data
+```{r}
+pols_df= 
+  read_csv("data_hw2/pols-month.csv") |>
+separate(mon, into = c("year", "month", "day"), sep = "-") |>
+mutate(
+  year = as.integer(year),
+  month = as.integer(month),
+  month = month.name[month],
+  president = ifelse(prez_gop == 1, "gop", "dem")
+  ) |>
+select(-day, -prez_gop, -prez_dem)
+```
+

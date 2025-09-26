@@ -90,7 +90,8 @@ Write-Up:
 mr_trash_df =
   read_excel("data_hw2/trashwheeldata.xlsx", skip = 1, na= c("NA", ".", "")) |> 
 janitor:: clean_names() |> 
-drop_na(dumpster)
+drop_na(dumpster) |> 
+select(-x15, -x16)
 
 ```
 

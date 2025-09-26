@@ -419,7 +419,8 @@ pols_df |&gt;
 <pre class="r"><code>mr_trash_df =
   read_excel(&quot;data_hw2/trashwheeldata.xlsx&quot;, skip = 1, na= c(&quot;NA&quot;, &quot;.&quot;, &quot;&quot;)) |&gt; 
 janitor:: clean_names() |&gt; 
-drop_na(dumpster)</code></pre>
+drop_na(dumpster) |&gt; 
+select(-x15, -x16)</code></pre>
 <pre><code>## New names:
 ## • `` -&gt; `...15`
 ## • `` -&gt; `...16`</code></pre>

@@ -417,7 +417,9 @@ pols_df |&gt;
 <div id="problem-2" class="section level2">
 <h2>Problem 2</h2>
 <pre class="r"><code>mr_trash_df =
-  read_excel(&quot;data_hw2/trashwheeldata.xlsx&quot;, skip = 1, na= c(&quot;NA&quot;, &quot;.&quot;, &quot;&quot;)) |&gt; 
+  read_excel(&quot;data_hw2/trashwheeldata.xlsx&quot;, 
+             sheet= &quot;Mr. Trash Wheel&quot;,
+             skip = 1, na= c(&quot;NA&quot;, &quot;.&quot;, &quot;&quot;)) |&gt; 
 janitor:: clean_names() |&gt; 
 drop_na(dumpster) |&gt; 
 select(-x15, -x16) |&gt;
@@ -427,6 +429,12 @@ select(-x15, -x16) |&gt;
 <pre><code>## New names:
 ## • `` -&gt; `...15`
 ## • `` -&gt; `...16`</code></pre>
+<pre class="r"><code>gwynnda_df =
+  read_excel(&quot;data_hw2/trashwheeldata.xlsx&quot;,
+             sheet = &quot;Gwynnda Trash Wheel&quot;,na = c(&quot;NA&quot;, &quot;.&quot;, &quot;&quot;)) |&gt;
+  janitor::clean_names() |&gt;
+  drop_na(dumpster) |&gt;
+  drop_na(wrappers)</code></pre>
 </div>
 
 

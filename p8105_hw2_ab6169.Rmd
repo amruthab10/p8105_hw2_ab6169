@@ -88,13 +88,22 @@ Write-Up:
 
 ```{r}
 mr_trash_df =
-  read_excel("data_hw2/trashwheeldata.xlsx", skip = 1, na= c("NA", ".", "")) |> 
+  read_excel("data_hw2/trashwheeldata.xlsx", 
+             sheet= "Mr. Trash Wheel",
+             skip = 1, na= c("NA", ".", "")) |> 
 janitor:: clean_names() |> 
 drop_na(dumpster) |> 
 select(-x15, -x16) |>
  mutate(
   sports_balls = as.integer(round(sports_balls))
 )
+
+gwynnda_df =
+  read_excel("data_hw2/trashwheeldata.xlsx",
+             sheet = "Gwynnda Trash Wheel",na = c("NA", ".", "")) |>
+  janitor::clean_names() |>
+  drop_na(dumpster) |>
+  drop_na(wrappers)
 
 ```
 

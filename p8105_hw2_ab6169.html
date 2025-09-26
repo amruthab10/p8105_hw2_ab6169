@@ -424,7 +424,9 @@ janitor:: clean_names() |&gt;
 drop_na(dumpster) |&gt; 
 select(-x15, -x16) |&gt;
  mutate(
-  sports_balls = as.integer(round(sports_balls))
+  year = as.integer(year),
+  sports_balls = as.integer(round(sports_balls)),
+  wheel= &quot;Mr.Trash Wheel&quot;
 )</code></pre>
 <pre><code>## New names:
 ## • `` -&gt; `...15`
@@ -434,7 +436,10 @@ select(-x15, -x16) |&gt;
              sheet = &quot;Professor Trash Wheel&quot;,
              na = c(&quot;NA&quot;, &quot;.&quot;, &quot;&quot;)) |&gt;
   janitor::clean_names() |&gt;
-  drop_na(dumpster) 
+  drop_na(dumpster) |&gt; 
+  mutate(
+    year = as.integer(year),
+    wheel = &quot;Professor Trash Wheel&quot;) 
 
 
 gwynnda_df =
@@ -442,7 +447,16 @@ gwynnda_df =
              sheet = &quot;Gwynnda Trash Wheel&quot;,na = c(&quot;NA&quot;, &quot;.&quot;, &quot;&quot;)) |&gt;
   janitor::clean_names() |&gt;
   drop_na(dumpster) |&gt; 
-  drop_na(wrappers)</code></pre>
+  drop_na(wrappers) |&gt; 
+  mutate(
+    year = as.integer(year),
+    wheel = &quot;Gwynnda Trash Wheel&quot;) 
+
+trash_wheel_df =
+  bind_rows(mr_trash_df, prof_trash_df, gwynnda_df) |&gt;
+  janitor:: clean_names() |&gt;
+  relocate(wheel, year, month)</code></pre>
+<p>Writeup</p>
 </div>
 
 

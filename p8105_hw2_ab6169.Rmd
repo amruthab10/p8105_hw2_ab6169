@@ -91,7 +91,10 @@ mr_trash_df =
   read_excel("data_hw2/trashwheeldata.xlsx", skip = 1, na= c("NA", ".", "")) |> 
 janitor:: clean_names() |> 
 drop_na(dumpster) |> 
-select(-x15, -x16)
+select(-x15, -x16) |>
+ mutate(
+  sports_balls = as.integer(round(sports_balls))
+)
 
 ```
 

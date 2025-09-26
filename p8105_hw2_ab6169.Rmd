@@ -84,6 +84,13 @@ pols_df |>
 
 Write-Up: 
 
-
 ## Problem 2 
+
+```{r}
+mr_trash_df =
+  read_excel("data_hw2/trashwheeldata.xlsx", skip = 1, na= c("NA", ".", "")) |> 
+janitor:: clean_names() |> 
+drop_na(dumpster)
+
+```
 

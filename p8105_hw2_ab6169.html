@@ -429,11 +429,19 @@ select(-x15, -x16) |&gt;
 <pre><code>## New names:
 ## • `` -&gt; `...15`
 ## • `` -&gt; `...16`</code></pre>
-<pre class="r"><code>gwynnda_df =
+<pre class="r"><code>prof_trash_df =
+  read_excel(&quot;data_hw2/trashwheeldata.xlsx&quot;,
+             sheet = &quot;Professor Trash Wheel&quot;,
+             na = c(&quot;NA&quot;, &quot;.&quot;, &quot;&quot;)) |&gt;
+  janitor::clean_names() |&gt;
+  drop_na(dumpster) 
+
+
+gwynnda_df =
   read_excel(&quot;data_hw2/trashwheeldata.xlsx&quot;,
              sheet = &quot;Gwynnda Trash Wheel&quot;,na = c(&quot;NA&quot;, &quot;.&quot;, &quot;&quot;)) |&gt;
   janitor::clean_names() |&gt;
-  drop_na(dumpster) |&gt;
+  drop_na(dumpster) |&gt; 
   drop_na(wrappers)</code></pre>
 </div>
 

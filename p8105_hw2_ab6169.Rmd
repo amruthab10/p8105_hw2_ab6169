@@ -98,11 +98,19 @@ select(-x15, -x16) |>
   sports_balls = as.integer(round(sports_balls))
 )
 
+prof_trash_df =
+  read_excel("data_hw2/trashwheeldata.xlsx",
+             sheet = "Professor Trash Wheel",
+             na = c("NA", ".", "")) |>
+  janitor::clean_names() |>
+  drop_na(dumpster) 
+
+
 gwynnda_df =
   read_excel("data_hw2/trashwheeldata.xlsx",
              sheet = "Gwynnda Trash Wheel",na = c("NA", ".", "")) |>
   janitor::clean_names() |>
-  drop_na(dumpster) |>
+  drop_na(dumpster) |> 
   drop_na(wrappers)
 
 ```

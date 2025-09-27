@@ -143,10 +143,19 @@ zipcodes_df=
 ```
 
 ```{r}
-zori_df= 
+zori_df = 
   read_csv("data_hw2/zipnyc.csv", na = c("NA", ".", "")) |>
-  janitor::clean_names() 
+  janitor::clean_names() |>
+  mutate(zip = as.character(region_name)) |>
+  select(zip, starts_with("20")) |>
+  pivot_longer(
+    cols = -zip,
+    names_to = "date",
+    values_to = "zori"
+  ) 
 ```
+
+
 
 
 

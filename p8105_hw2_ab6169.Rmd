@@ -135,13 +135,17 @@ Write-up
 ```{r}
 zipcodes_df= 
   read_csv("data_hw2/zipcodes.csv", na = c("NA", ".", "")) |>
-  janitor::clean_names() 
+  janitor::clean_names() |>
+  mutate(
+    zip = as.character(zip_code)) |>
+  select(zip, county, neighborhood)
+
 ```
 
 ```{r}
 zori_df= 
   read_csv("data_hw2/zipnyc.csv", na = c("NA", ".", "")) |>
-  janitor::clean_names() |> 
+  janitor::clean_names() 
 ```
 
 

@@ -140,9 +140,6 @@ zipcodes_df=
     zip = as.character(zip_code)) |>
   select(zip, county, neighborhood)
 
-```
-
-```{r}
 zori_df = 
   read_csv("data_hw2/zipnyc.csv", na = c("NA", ".", "")) |> 
   janitor::clean_names() |> 
@@ -153,11 +150,22 @@ select(zip, starts_with("x20")) |>
     names_to = "date",
     values_to = "zori"
   ) |> 
-mutate(date = sub("^x", "", date))  
+mutate(date = sub("^x", "", date)) |>  
+separate(date, into = c("year", "month", "day"), sep = "_") |>
+  mutate(
+    year  = as.integer(year),
+    month = as.integer(month),
+    day   = as.integer(day)
+  )
 
+mergezip_df=
+  left_join(zori_df, zipcodes_df, by = "zip") |>
+  select(zip, county, neighborhood, year, month, zori) |>
+  arrange(county, neighborhood, zip, year, month)
 ```
 
-Writeup: Many rows of the ZORI dataset contain missing values because Zillow did not report rent for those ZIP codes or months
+Writeup: 
+I cleaned and merged the Zillow Observed Rent Index (zori) dataset with the ZIP code information. From this, I got a single tidy dataset, `mergezip_df`. The final dataset has `r nrow(mergezip_df)` total observations. Many rows of the ZORI dataset contain missing values because Zillow did not report rent for those ZIP codes or months
 
 
 

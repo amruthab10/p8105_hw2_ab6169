@@ -7,7 +7,7 @@ output: github_document
 
 ## Problem 1
 
-First, I load my libraries
+First, I loaded my libraries
 ```{r setup, include=FALSE}
 library(tidyverse)
 library(janitor) 
@@ -83,14 +83,11 @@ Write-Up:
 
 The `pols-month.csv` dataset contains information about political leaders,including the number of governors, senators, and representatives, along with the party of the president at the time. The `snp.csv` dataset provides the closing values of the S&P stock index by year and month. The `unemployment.csv` dataset reports monthly unemployment percentages for each year.  
 
-After cleaning and merging, the resulting dataset has  
-`r nrow(merged_df)` observations, covering the years  
-`r min(merged_df$year)` to `r max(merged_df$year)`.  
-Key variables include `year`, `month`, `president`, `close`, and `unemployment`.  
+After cleaning and merging, the resulting dataset has `r nrow(merged_df)` observations, covering the years`r min(merged_df$year)` to `r max(merged_df$year)`. Key variables include `year`, `month`, `president`, `close`, and `unemployment`.  
 
 ## Problem 2 
 
-```{r}
+```{r message=FALSE }
 mr_trash_df =
   read_excel("data_hw2/trashwheeldata.xlsx", 
              sheet= "Mr. Trash Wheel",
@@ -129,10 +126,18 @@ trash_wheel_df =
   bind_rows(mr_trash_df, prof_trash_df, gwynnda_df) |>
   janitor:: clean_names() |>
   relocate(wheel, year, month)
-
 ```
 
 Write-up 
+
+The Mr. Trash Wheel, Professor Trash Wheel, and Gwynnda datasets track the trash collected from Baltimore’s harbor. Each row represents a dumpster, with variables for the date, total trash weight, and counts of items such asplastic bottles, cigarette butts, and sports balls.  
+
+After combining all three datasets, the final tidy dataset has `r nrow(trash_wheel_df)` total observations. Key variables include `year`, `month`, `weight_tons`, `cigarette_butts`, and `sports_balls`.  
+
+Professor Trash Wheel has collected a total of `r sum(prof_trash_df$weight_tons, na.rm = TRUE)` tons of trash.In June 2022, Gwynnda collected `r sum(gwynnda_df$cigarette_butts[gwynnda_df$month == "June" & gwynnda_df$year == 2022], na.rm = TRUE)`cigarette butts.
+
+
+
 
 ## Problem 3 
 
@@ -172,5 +177,22 @@ Writeup:
 I cleaned and merged the Zillow Observed Rent Index (zori) dataset with the ZIP code information. From this, I got a single tidy dataset, `mergezip_df`. The final dataset has `r nrow(mergezip_df)` total observations. Many rows of the ZORI dataset contain missing values because Zillow did not report rent for those ZIP codes or months
 
 
+```{r}
+covid_change_df =
+  mergezip_df |>
+  filter(month == 1, year %in% c(2020, 2021)) |>
+  select(zip, county, neighborhood, year, zori) |>
+  pivot_wider(
+    names_from = year,
+    values_from = zori,
+    names_prefix = "year_"
+  ) |>
+  mutate(change = year_2021 - year_2020) |>
+  drop_na(year_2020, year_2021, change, neighborhood) |> 
+  arrange(change) 
+```
+
+Comments: 
+The `covid_change_df` compares ZORI rental prices in January 2020 and January 2021 for all available NYC ZIP codes. The dataset has `r nrow(covid_change_df)` observations. Each showing the rent change across one ZIP code. The largest rent decrease was `r min(covid_change_df$change, na.rm = TRUE)` index points, while the largest increase was `r max(covid_change_df$change, na.rm = TRUE)`. This highlights the sharp fluctuations in rental prices during the COVID-19 pandemic.  
 
 

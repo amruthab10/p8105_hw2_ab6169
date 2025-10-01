@@ -193,7 +193,11 @@ covid_change_df =
   mutate(change = year_2021_01_31 - year_2020_01_31) |>
   drop_na(change)
 
-
+top_ten_change= 
+  covid_change_df |>
+  arrange(change) |>       
+  slice_head(n = 10) |>         
+  select(zip_code, county, neighborhood, year_2020_01_31, year_2021_01_31, change)
 ```
 
 Comments: 

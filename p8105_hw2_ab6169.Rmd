@@ -144,10 +144,7 @@ Professor Trash Wheel has collected a total of `r sum(prof_trash_df$weight_tons,
 zipcodes_df= 
   read_csv("data_hw2/zipcodes.csv", na = c("NA", ".", "")) |>
   janitor::clean_names() |> 
-  select(-state_fips, -file_date) |>  
-  filter(row_number() != 226) |> 
-  filter(row_number() != 226) 
-  
+  select(-state_fips, -file_date) 
 
 zori_df = 
   read_csv("data_hw2/zipnyc.csv", na = c("NA", ".", "")) |> 
@@ -164,7 +161,7 @@ zori_df =
 
 #Joined DataFrame
 mergezip_df=
-  left_join(zipcodes_df, zori_df, by = "zip_code") 
+  left_join(zipcodes_df, zori_df, by = "zip_code","county") 
 ```
 
 Writeup: 
@@ -173,8 +170,14 @@ I cleaned and merged the Zillow Observed Rent Index (zori) dataset with the ZIP 
 ```{r}
 #Shows which ZIP codes appear in the ZIP code dataset but not in the Zillow Rental Price dataset
 missing_zips_df =
-  anti_join(zipcodes_df, zori_df, by = "zip_code")
+  anti_join(zipcodes_df, zori_df, by = "zip_code","county")
 ```
+
+Illustrative Examples:
+
+10112: On Zillow this zipcode covers Rockefeller Center and office towers. 
+10048: This zipcode could be excluded since it is the one and only valid zip code for any Tennant and office located in the original World Trade Center complex
+
 
 ```{r}
 covid_change_df =

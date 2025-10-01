@@ -133,14 +133,14 @@ The Mr. Trash Wheel, Professor Trash Wheel, and Gwynnda datasets track the trash
 
 After combining all three datasets, the final tidy dataset has `r nrow(trash_wheel_df)` total observations. Key variables include `year`, `month`, `weight_tons`, `cigarette_butts`, and `sports_balls`.  
 
-Professor Trash Wheel has collected a total of `r sum(prof_trash_df$weight_tons, na.rm = TRUE)` tons of trash.In June 2022, Gwynnda collected `r sum(gwynns_df$cigarette_butts[gwynns_df$month == "June" & gwynns_df$year == 2022], na.rm = TRUE)`cigarette butts.
+Professor Trash Wheel has collected a total of `r sum(prof_trash_df$weight_tons, na.rm = TRUE)` tons of trash.In June 2022, Gwynnda collected `r sum(gwynns_df$cigarette_butts[gwynns_df$month == "June" & gwynns_df$year == 2022], na.rm = TRUE) `cigarette butts.
 
 
 
 
 ## Problem 3 
 
-```{r}
+```{r message = FALSE}
 zipcodes_df= 
   read_csv("data_hw2/zipcodes.csv", na = c("NA", ".", "")) |>
   janitor::clean_names() |> 
@@ -167,7 +167,7 @@ mergezip_df=
 Writeup: 
 I cleaned and merged the Zillow Observed Rent Index (zori) dataset with the ZIP code information. From this, I got a single tidy dataset, `mergezip_df`. The final dataset has `r nrow(mergezip_df)` total observations. Many rows of the ZORI dataset contain missing values because Zillow did not report rent for those ZIP codes or months
 
-```{r}
+```{r message = FALSE}
 #Shows which ZIP codes appear in the ZIP code dataset but not in the Zillow Rental Price dataset
 missing_zips_df =
   anti_join(zipcodes_df, zori_df, by = "zip_code","county")
@@ -175,8 +175,7 @@ missing_zips_df =
 
 Illustrative Examples:
 
-10112: On Zillow this zipcode covers Rockefeller Center and office towers. 
-10048: This zipcode could be excluded since it is the one and only valid zip code for any Tennant and office located in the original World Trade Center complex
+These zipcodes might be excluded from the Zillow dataset for various reason. For example, zipcode 10112 covers Rockefeller Center and office towers so Zillow cannot track rents if they don't have residential rental markets. Zipcode 10048 could be excluded since it is the one and only valid zip code for any Tennant and office located in the original World Trade Center complex. So, it is assigned for historical or institutional use and not for active housing. Lastly, 
 
 
 ```{r}
@@ -194,6 +193,6 @@ covid_change_df =
 ```
 
 Comments: 
-The `covid_change_df` compares ZORI rental prices in January 2020 and January 2021 for all available NYC ZIP codes. The dataset has `r nrow(covid_change_df)` observations. Each showing the rent change across one ZIP code. The largest rent decrease was `r min(covid_change_df$change, na.rm = TRUE)` index points, while the largest increase was `r max(covid_change_df$change, na.rm = TRUE)`. This highlights the sharp fluctuations in rental prices during the COVID-19 pandemic.  
+The `covid_change_df` compares ZORI rental prices in January 2020 and January 2021 for all available NYC ZIP codes. The dataset has `r nrow(covid_change_df)` observations. Each showing the rent change across one ZIP code. The largest rent decrease was `r min(covid_change_df$change, na.rm = TRUE)` while the largest increase was `r max(covid_change_df$change, na.rm = TRUE)`. This highlights the fluctuations in rental prices during the COVID-19 pandemic.  
 
 
